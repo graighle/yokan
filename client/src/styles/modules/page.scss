@@ -1,0 +1,32 @@
+.m-page-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	.m-app-title {
+		height: 100%;
+		margin: 0 1em;
+
+		display: flex;
+		flex: init;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.m-space {
+		height: 100%;
+
+		display: flex;
+		flex: auto;
+	}
+
+	.m-options {
+		height: 100%;
+		margin: 0 1em;
+
+		display: flex;
+		flex: init;
+		align-items: center;
+	}
+}
+
