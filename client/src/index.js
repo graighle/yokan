@@ -1,14 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
+import thunk from 'redux-thunk';
 import Root from './Root';
 import * as serviceWorker from './serviceWorker';
+import rootReducer from './reducers';
+import createApiCaller from './middlewares/ApiCaller';
 
 const logger = createLogger();
 
+const apiCaller = createApiCaller({
+	url: 'http://localhost:5000/api',
+});
+
+const store = createStore(
+	rootReducer,
+	applyMiddleware(
+		apiCaller,
+		thunk,
+		logger
+	)
+);
+
 ReactDOM.render(
-	<Root />,
+	<Root store={store} />,
 	document.getElementById('root')
 );
 

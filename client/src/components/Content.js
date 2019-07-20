@@ -8,7 +8,7 @@ class Content extends React.Component {
 			ContentView,
 			{
 			},
-			null
+			this.props.children
 		);
 	}
 }
