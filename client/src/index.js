@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { createLogger } from 'redux-logger';
 import Root from './Root';
 import * as serviceWorker from './serviceWorker';
+
+const logger = createLogger();
 
 ReactDOM.render(
 	<Root />,
