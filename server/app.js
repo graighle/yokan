@@ -2,6 +2,8 @@ import express from 'express';
 import path from 'path';
 import logger from 'morgan';
 import cors from 'cors';
+import api from './routes/api';
+import { ResponseError } from './errors/ResponseError';
 
 const app = express();
 
@@ -12,13 +14,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('etag', false);
 
 app.use(cors());
+app.use('/api', api);
 
 app.use((err, req, res, next) => {
 	console.dir(err);
 	if(res.headersSent)
 		return next(err);
 
-	if('status' in err){
+	if(err instanceof ResponseError){
+		res.status(err.status || 500);
+		res.set(err.headers || {});
+		if(err.message)
+			res.send(err.message);
+		else
+			err.end();
+	}else if('status' in err){
 		res.set(err.headers || {});
 		res.sendStatus(err.status);
 	}else{
@@ -27,5 +37,4 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-
 
