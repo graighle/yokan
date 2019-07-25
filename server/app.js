@@ -27,7 +27,7 @@ app.use((err, req, res, next) => {
 		if(err.message)
 			res.send(err.message);
 		else
-			err.end();
+			res.end();
 	}else if('status' in err){
 		res.set(err.headers || {});
 		res.sendStatus(err.status);
