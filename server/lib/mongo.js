@@ -5,6 +5,7 @@ const url = 'mongodb://localhost:27017/yokan';
 
 export const Collections = {
 	SYSTEM: 'system',
+	USERS: 'users',
 };
 
 var dbCache = null;
@@ -21,12 +22,6 @@ export function database(){
 		console.dir(err);
 		throw new DatabaseError({message:'Failed to connect database.'});
 	});
-
-}
-
-export function collection(name){
-
-	return database().then(db => db.collection(name, {strict:true}));
 
 }
 
