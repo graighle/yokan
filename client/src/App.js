@@ -6,6 +6,7 @@ import LeftMenu from './components/LeftMenu';
 import Setup from './components/system/Setup';
 
 import 'normalize.css';
+import './styles/base.scss';
 import './styles/elements';
 import './styles/layouts';
 import './styles/modules';
