@@ -3,11 +3,6 @@ import { MongoClient } from 'mongodb';
 
 const url = 'mongodb://localhost:27017/yokan';
 
-export const Collections = {
-	SYSTEM: 'system',
-	USERS: 'users',
-};
-
 var dbCache = null;
 
 export function database(){
