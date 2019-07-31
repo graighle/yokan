@@ -18,6 +18,14 @@ const setup = handleActions(
 			error: error ? status : null,
 			status: error ? null : status,
 		}),
+		[setupActions.executeSetup]: (
+			state,
+			{ payload: status, error, meta, }
+		) => ({
+			...state,
+			error: error ? status : null,
+			status: error ? null : status,
+		}),
 	},
 	initialState
 );
