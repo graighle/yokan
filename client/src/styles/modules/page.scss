@@ -35,9 +35,23 @@
 
 	.m-content-title {
 		margin-bottom: 1em;
+		font-size: 2em;
 	}
 
 	.m-content-body {
+	}
+}
+
+.m-section {
+	.m-section-header {
+		padding-bottom: 0.2em;
+		margin: 1em 0;
+		border-bottom: 1px solid lightgray;
+
+		font-size: 1.4em;
+	}
+
+	.m-section-body {
 	}
 }
 
