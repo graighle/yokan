@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Content from './components/Content';
 import Header from './components/Header';
 import LeftMenu from './components/LeftMenu';
+import DialogRenderer from './components/dialogs/DialogRenderer';
 import Setup from './components/system/Setup';
 
 import 'normalize.css';
@@ -21,6 +22,7 @@ const App = () => (
 				<Route path="/setup" component={Setup} />
 			</Switch>
 		</Content>
+		<DialogRenderer />
 	</div>
 );
 
