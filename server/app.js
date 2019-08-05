@@ -1,3 +1,4 @@
+import config from 'config';
 import express from 'express';
 import path from 'path';
 import logger from 'morgan';
@@ -6,6 +7,8 @@ import api from './routes/api';
 import { ResponseError } from './errors/ResponseError';
 
 const app = express();
+
+app.set('jwtSecretToken', config.jwtSecretToken);
 
 app.use(logger('dev'));
 app.use(express.json());
