@@ -6,11 +6,16 @@
 	border: 1px solid black;
 	border-radius: 3px;
 	cursor: pointer;
+	text-shadow: 1px 1px #808080;
 }
 .e-square-button:hover {
 	background-color: #bbbbbb;
 }
 .e-square-button:active {
 	background-color: #999999;
+}
+
+button.e-w-medium {
+	width: 15em;
 }
 
