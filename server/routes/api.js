@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import tokenCheck from '../utils/tokenCheck';
 import * as setup from '../api/setup';
-import * as login from '../api/login';
+import * as signIn from '../api/signin';
 
 const router = Router();
 
-router.post('/login', login.login);
+router.post('/signin', signIn.signIn);
 
 router.get('/setup', setup.getSetup);
 router.post('/setup', setup.postSetup);

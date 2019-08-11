@@ -7,7 +7,7 @@ import { newClientError } from '../errors/ResponseError';
 
 const ajv = new Ajv();
 
-const validateLoginBody = ajv.compile({
+const validateSignInBody = ajv.compile({
 	type: 'object',
 	properties: {
 		id: {
@@ -22,14 +22,14 @@ const validateLoginBody = ajv.compile({
 	required: ['id', 'password'],
 });
 
-export function login(req, res, next){
+export function signIn(req, res, next){
 
 	// Request check.
 	if(!req.is('application/json'))
 		throw newClientError(400, {'error': 'invalid_request'});
 
 	// Body check.
-	if(!validateLoginBody(req.body))
+	if(!validateSignInBody(req.body))
 		throw newClientError(400, {'error': 'invalid_request'});
 
 	co(function*(){
