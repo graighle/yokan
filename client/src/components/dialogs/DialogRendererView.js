@@ -20,6 +20,7 @@ const DialogView = ({index, dialog}) => (
 			onClick={dialog.options.onClickOverlay}
 		/>
 		<div className="l-dialog-frame" style={{'zIndex': baseZIndex + index * 2 + 1}} >
+			{dialog.type === 'sign_in' ? <SignInDialog options={dialog.options} /> : null}
 		</div>
 	</>
 );

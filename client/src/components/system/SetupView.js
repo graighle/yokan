@@ -59,7 +59,7 @@ const InitialSetupView = (props) => (
 		</div>
 		<div className="m-section-body">
 			<dl>
-				<dl className="label-value">
+				<dl className="m-label-value">
 					<dt>New Administrator</dt>
 					<dd>
 						<input type="text" className="e-text-input e-w-medium" placeholder="ID" value={props.adminId}

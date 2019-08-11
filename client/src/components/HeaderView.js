@@ -1,13 +1,23 @@
 import React from 'react';
+import { IconContext } from 'react-icons';
+import { MdSettings } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
-const HeaderView = (props) => (
+const HeaderView = props => (
 	<div className="l-header m-page-header t-page-header">
-		<div className="m-app-title e-app-title-text">
-			Yokan
+		<div className="m-app-title">
+			<Link to="/" className="e-app-title-link">Yokan</Link>
 		</div>
 		<div className="m-space">
 		</div>
 		<div className="m-options">
+			{props.signinUser ? (
+				<IconContext.Provider value={{ className: 'e-setting-icon' }}>
+					<MdSettings />
+				</IconContext.Provider>
+			) : (
+				<button className="e-square-button t-action-button" onClick={props.openSignInDialog}>Sign In</button>
+			)}
 		</div>
 	</div>
 );
