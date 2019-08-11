@@ -1,5 +1,15 @@
 import fetch from 'cross-fetch';
 
+export class FetchError extends Error {
+	constructor(args = {}){
+		super();
+
+		this.name = 'FetchError';
+		this.status = args.status || null;
+		this.message = args.message || '';
+	}
+};
+
 function buildQueryString(params){
 	if(Object.keys(params).length === 0)
 		return '';
@@ -11,78 +21,154 @@ function buildQueryString(params){
 export default function createApiCaller(params){
 
 	let options = {...params};
+	let accessToken = '';
 
-	const call = (store, next, action) => {
-		const api = action.meta.api;
-
-		let query = buildQueryString(api.query || {});
+	const processFetch = (url, method, queryData, bodyData) => {
+		let query = buildQueryString(queryData || {});
 
 		let fetchOptions = {
-			method: api.method,
+			method: method,
 			headers: {
 				'Accept': 'application/json',
 			},
+			mode: 'cors',
 		};
 
-		if(api.body){
+		if(bodyData){
 			fetchOptions.headers['Content-type'] = 'application/json';
-			fetchOptions.body = JSON.stringify(api.body);
+			fetchOptions.body = JSON.stringify(bodyData);
 		}
 
-		return fetch(options.url + api.path + query, fetchOptions)
+		return fetch(url + query, fetchOptions)
 			.then(res => {
 				switch(res.status){
 					case 200:
 					case 201:
 					case 202:
-						return res.json()
-							.then(data => {
-								return next({
-									...action,
-									payload: data,
-									meta: {
-										...action.meta,
-										api: undefined,
-									},
-								})
-							});
+						return res.json();
 
 					default:
-						return next({
-							...action,
-							payload: {
-								status: res.status,
-								message: res.statusText,
-							},
-							error: true,
-							meta: {
-								...action.meta,
-								api: undefined,
-							},
+						throw new FetchError({
+							status: res.status,
+							message: res.statusText,
 						});
 				}
 			})
 			.catch(err => {
-				return next({
-					...action,
-					payload: {
+				if(err instanceof FetchError){
+					throw err;
+				}else{
+					throw new FetchError({
 						status: null,
-						message: err,
-					},
-					error: true,
-					meta: {
-						...action.meta,
-						api: undefined,
-					},
-				});
+						message: err.message,
+					});
+				}
 			});
+		;
+	};
+
+	const signIn = (store, next, action) => {
+		const api = action.meta.api;
+
+		return processFetch(options.url + api.path, 'POST', api.query || {}, api.body)
+			.then(data => {
+				accessToken = data.accessToken;
+				localStorage.setItem('accessToken', accessToken);
+				return data;
+			})
+			.then(data => next({
+				...action,
+				payload: data,
+				meta: {
+					...action.meta,
+					api: undefined,
+				},
+			}))
+			.catch(err => next({
+				...action,
+				payload: {
+					status: err.status,
+					message: err.message,
+				},
+				error: true,
+				meta: {
+					...action.meta,
+					api: undefined,
+				},
+			}))
+		;
+	};
+
+	const restoreSignIn = (store, next, action) => {
+		const token = localStorage.getItem('accessToken');
+		if(token)
+			accessToken = token;
+
+		return next({
+			...action,
+			meta: {
+				...action.meta,
+				api: undefined,
+			},
+		});
+	};
+
+	const signOut = (store, next, action) => {
+		localStorage.removeItem('accessToken');
+
+		return next({
+			...action,
+			meta: {
+				...action.meta,
+				api: undefined,
+			},
+		});
+	};
+
+	const call = (store, next, action) => {
+		const api = action.meta.api;
+
+		return processFetch(options.url + api.path, api.method, api.query || {}, api.body)
+			.then(data => next({
+				...action,
+				payload: data,
+				meta: {
+					...action.meta,
+					api: undefined,
+				},
+			}))
+			.catch(err => next({
+				...action,
+				payload: {
+					status: err.status,
+					message: err.message,
+				},
+				error: true,
+				meta: {
+					...action.meta,
+					api: undefined,
+				},
+			}))
+		;
 	};
 
 	return store => next => action => {
 		next(action);
 
-		if(action.meta.api){
-			return call(store, next, action);
+		if(action.meta && action.meta.api){
+			switch(action.meta.api.method){
+				case 'SIGN_IN':
+					return signIn(store, next, action);
+
+				case 'RESTORE_SIGN_IN':
+					return restoreSignIn(store, next, action);
+
+				case 'SIGN_OUT':
+					return signOut(store, next, action);
+
+				default:
+					return call(store, next, action);
+			}
 		}
 	};
 
