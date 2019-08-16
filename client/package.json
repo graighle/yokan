@@ -4,10 +4,10 @@
   "private": true,
   "dependencies": {
     "cross-fetch": "^3.0.4",
-    "flux-standard-action": "^2.1.0",
+    "flux-standard-action": "^2.1.1",
     "normalize.css": "^8.0.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-icons": "^3.7.0",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
