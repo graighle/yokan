@@ -2,24 +2,15 @@ import React from 'react';
 import HeaderView from './HeaderView';
 import { connect } from 'react-redux';
 import * as dialogActions from '../actions/dialog';
-import * as profileActions from '../actions/profile';
 
 class Header extends React.Component {
-	constructor(props){
-		super(props);
-
-		this.state = {
-			signInDialogId: null,
-		};
-	}
-
 	render(){
-		const { profile } = this.props;
+		const { auth } = this.props;
 
 		return React.createElement(
 			HeaderView,
 			{
-				signinUser: profile.user,
+				signInUser: auth.user,
 				openSignInDialog: this.openSignInDialog.bind(this),
 			},
 			null
@@ -32,6 +23,7 @@ class Header extends React.Component {
 		this.props.openSignInDialog({
 			onClose: this.closeSignInDialog.bind(this),
 			onClickOverlay: this.closeSignInDialog.bind(this),
+			onSignInResult: this.signInResult.bind(this),
 		});
 	}
 
@@ -41,14 +33,23 @@ class Header extends React.Component {
 
 		this.props.closeSignInDialog();
 	}
+
+	signInResult(success, message){
+		if(success){
+			this.props.closeSignInDialog();
+		}else{
+			const msg = message || 'Sign in failed.';
+			alert(msg);
+		}
+	}
+
 }
 
 const mapStateToProps = state => ({
-	profile: state.profile,
+	auth: state.auth,
 });
 
 const mapDispatchToProps = dispatch => ({
-	getProfile: () => dispatch(profileActions.getProfile()),
 	openSignInDialog: (options) => dispatch(dialogActions.openSignInDialog(options)),
 	closeSignInDialog: () => dispatch(dialogActions.closeSignInDialog()),
 });

@@ -1,13 +1,13 @@
 import React from 'react';
 import DialogBox from './DialogBox';
 
-const SignInDialogView = props => (
+const SignInDialogView = React.forwardRef((props, refs) => (
 	<DialogBox>
 		<form onSubmit={props.signIn}>
 			<dl className="m-label-value">
 				<dt>ID</dt>
 				<dd>
-					<input type="text" className="e-text-input e-w-medium" value={props.id} ref="id"
+					<input type="text" className="e-text-input e-w-medium" value={props.id} ref={refs.id}
 						onChange={props.changeId}
 					/>
 				</dd>
@@ -23,7 +23,7 @@ const SignInDialogView = props => (
 			</div>
 		</form>
 	</DialogBox>
-);
+));
 
 export default SignInDialogView;
 

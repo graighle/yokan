@@ -7,10 +7,18 @@ class SignInDialog extends React.Component {
 	constructor(props){
 		super(props);
 
+		this.elements = {
+			id: React.createRef(),
+		};
+
 		this.state = {
 			id: '',
 			password: '',
 		};
+	}
+
+	componentDidMount(){
+		this.elements.id.current.focus();
 	}
 
 	render(){
@@ -22,6 +30,7 @@ class SignInDialog extends React.Component {
 				changeId: this.changeId.bind(this),
 				changePassword: this.changePassword.bind(this),
 				signIn: this.signIn.bind(this),
+				ref: this.elements,
 			},
 			null
 		);
@@ -46,6 +55,9 @@ class SignInDialog extends React.Component {
 		this.props.signIn({
 			id,
 			password,
+		})
+		.then(ret => {
+			this.props.options.onSignInResult(!ret.error, ret.message);
 		});
 	}
 }

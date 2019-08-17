@@ -10,8 +10,11 @@ const HeaderView = props => (
 		</div>
 		<div className="m-space">
 		</div>
+		<div className="m-user">
+			{props.signInUser ? props.signInUser.id : null}
+		</div>
 		<div className="m-options">
-			{props.signinUser ? (
+			{props.signInUser ? (
 				<IconContext.Provider value={{ className: 'e-setting-icon' }}>
 					<MdSettings />
 				</IconContext.Provider>

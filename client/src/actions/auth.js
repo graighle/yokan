@@ -6,7 +6,7 @@ export const {
 	signOut,
 } = createActions({
 	SIGN_IN: [
-		() => null,
+		() => ({}),
 		req => ({
 			api: {
 				method: 'SIGN_IN',
@@ -16,7 +16,7 @@ export const {
 		})
 	],
 	RESTORE_SIGN_IN: [
-		() => null,
+		() => ({}),
 		() => ({
 			api: {
 				method: 'RESTORE_SIGN_IN',
