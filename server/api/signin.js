@@ -50,6 +50,10 @@ export function signIn(req, res, next){
 		const token = jwt.sign(auth, req.app.get('jwtSecretToken'), { expiresIn: '50000h' });
 		return {
 			accessToken: token,
+			user: {
+				...user,
+				password: undefined,
+			},
 		};
 	})
 	.then(val => res.send(val))
