@@ -1,9 +1,14 @@
 import React from 'react';
 import HeaderView from './HeaderView';
 import { connect } from 'react-redux';
+import * as authActions from '../actions/auth';
 import * as dialogActions from '../actions/dialog';
 
 class Header extends React.Component {
+	componentDidMount(){
+		this.props.restoreSignIn();
+	}
+
 	render(){
 		const { auth } = this.props;
 
@@ -50,6 +55,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+	restoreSignIn: () => dispatch(authActions.restoreSignIn()),
 	openSignInDialog: (options) => dispatch(dialogActions.openSignInDialog(options)),
 	closeSignInDialog: () => dispatch(dialogActions.closeSignInDialog()),
 });

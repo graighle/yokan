@@ -21,25 +21,28 @@ function buildQueryString(params){
 export default function createApiCaller(params){
 
 	let options = {...params};
-	let accessToken = '';
+	let accessToken = null;
 
-	const processFetch = (url, method, queryData, bodyData) => {
-		let query = buildQueryString(queryData || {});
+	const processFetch = (args) => {
+		let query = buildQueryString(args.query);
 
 		let fetchOptions = {
-			method: method,
+			method: args.method,
 			headers: {
 				'Accept': 'application/json',
 			},
 			mode: 'cors',
 		};
 
-		if(bodyData){
+		if(args.auth && accessToken)
+			fetchOptions.headers['Authorization'] = 'Bearer ' + accessToken;
+
+		if(args.body){
 			fetchOptions.headers['Content-type'] = 'application/json';
-			fetchOptions.body = JSON.stringify(bodyData);
+			fetchOptions.body = JSON.stringify(args.body);
 		}
 
-		return fetch(url + query, fetchOptions)
+		return fetch(args.path + query, fetchOptions)
 			.then(res => {
 				switch(res.status){
 					case 200:
@@ -70,7 +73,15 @@ export default function createApiCaller(params){
 	const signIn = (store, next, action) => {
 		const api = action.meta.api;
 
-		return processFetch(options.url + api.path, 'POST', api.query || {}, api.body)
+		const args = {
+			path: options.url + '/signin',
+			method: 'POST',
+			auth: true,
+			query: {},
+			body: api.body,
+		};
+
+		return processFetch(args)
 			.then(data => {
 				accessToken = data.accessToken;
 				localStorage.setItem('accessToken', accessToken);
@@ -104,13 +115,7 @@ export default function createApiCaller(params){
 		if(token)
 			accessToken = token;
 
-		return next({
-			...action,
-			meta: {
-				...action.meta,
-				api: undefined,
-			},
-		});
+		return signIn(store, next, action);
 	};
 
 	const signOut = (store, next, action) => {
@@ -128,7 +133,15 @@ export default function createApiCaller(params){
 	const call = (store, next, action) => {
 		const api = action.meta.api;
 
-		return processFetch(options.url + api.path, api.method, api.query || {}, api.body)
+		const args = {
+			path: options.url + api.path,
+			method: api.method,
+			auth: !!api.auth,
+			query: api.query || {},
+			body: api.body,
+		};
+
+		return processFetch(args)
 			.then(data => next({
 				...action,
 				payload: data,

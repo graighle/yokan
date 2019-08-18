@@ -10,7 +10,6 @@ export const {
 		req => ({
 			api: {
 				method: 'SIGN_IN',
-				path: '/signin',
 				body: req,
 			},
 		})
@@ -20,7 +19,6 @@ export const {
 		() => ({
 			api: {
 				method: 'RESTORE_SIGN_IN',
-				path: '/signin',
 			},
 		})
 	],
