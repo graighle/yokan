@@ -23,7 +23,7 @@ export const {
 		})
 	],
 	SIGN_OUT: [
-		() => null,
+		() => ({}),
 		() => ({
 			api: {
 				method: 'SIGN_OUT',
