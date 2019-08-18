@@ -24,22 +24,29 @@ const validateSignInBody = ajv.compile({
 
 export function signIn(req, res, next){
 
-	// Request check.
-	if(!req.is('application/json'))
-		throw newClientError(400, {'error': 'invalid_request'});
+	let userFilter = {
+	};
 
-	// Body check.
-	if(!validateSignInBody(req.body))
-		throw newClientError(400, {'error': 'invalid_request'});
+	if(req.body && Object.keys(req.body).length !== 0){
+		// Request check.
+		if(!req.is('application/json'))
+			throw newClientError(400, {'error': 'invalid_request'});
+
+		// Body check.
+		if(!validateSignInBody(req.body))
+			throw newClientError(400, {'error': 'invalid_request'});
+
+		userFilter.id = req.body.id;
+		userFilter.password = req.body.password;
+	}else if(req.auth){
+		userFilter.id = req.auth.id;
+	}
 
 	co(function*(){
 		let db = yield database();
 
 		const user = yield db.collection(USERS)
-			.findOne({
-				id: req.body.id,
-				password: req.body.password,
-			});
+			.findOne(userFilter);
 		if(!user)
 			throw newClientError(401);
 
@@ -52,6 +59,7 @@ export function signIn(req, res, next){
 			accessToken: token,
 			user: {
 				...user,
+				_id: undefined,
 				password: undefined,
 			},
 		};
