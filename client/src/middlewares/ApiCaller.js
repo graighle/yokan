@@ -112,10 +112,12 @@ export default function createApiCaller(params){
 
 	const restoreSignIn = (store, next, action) => {
 		const token = localStorage.getItem('accessToken');
-		if(token)
+		if(token){
 			accessToken = token;
-
-		return signIn(store, next, action);
+			return signIn(store, next, action);
+		}else{
+			return next(action);
+		}
 	};
 
 	const signOut = (store, next, action) => {
