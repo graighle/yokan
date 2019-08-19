@@ -40,6 +40,8 @@ export function signIn(req, res, next){
 		userFilter.password = req.body.password;
 	}else if(req.auth){
 		userFilter.id = req.auth.id;
+	}else{
+		throw newClientError(400, {'error': 'invalid_request'});
 	}
 
 	co(function*(){
