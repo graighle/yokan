@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DialogBoxView = props => (
-	<div className="m-dialog-box">
+	<div className="l-center m-dialog-box">
 		{props.children}
 	</div>
 );

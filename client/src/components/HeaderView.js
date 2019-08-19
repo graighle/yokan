@@ -16,7 +16,7 @@ const HeaderView = props => (
 		<div className="m-options">
 			{props.signInUser ? (
 				<IconContext.Provider value={{ className: 'e-setting-icon' }}>
-					<MdSettings />
+					<MdSettings onClick={props.clickSettingIcon} />
 				</IconContext.Provider>
 			) : (
 				<button className="e-square-button t-action-button" onClick={props.openSignInDialog}>Sign In</button>

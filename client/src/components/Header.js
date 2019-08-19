@@ -16,27 +16,26 @@ class Header extends React.Component {
 			HeaderView,
 			{
 				signInUser: auth.user,
+				clickSettingIcon: this.openSettingMenuDialog.bind(this),
 				openSignInDialog: this.openSignInDialog.bind(this),
 			},
 			null
 		);
 	}
 
+	openSettingMenuDialog(e){
+		e.preventDefault();
+
+		this.props.openSettingMenuDialog({
+		});
+	}
+
 	openSignInDialog(e){
 		e.preventDefault();
 
 		this.props.openSignInDialog({
-			onClose: this.closeSignInDialog.bind(this),
-			onClickOverlay: this.closeSignInDialog.bind(this),
 			onSignInResult: this.signInResult.bind(this),
 		});
-	}
-
-	closeSignInDialog(e){
-		if(e)
-			e.preventDefault();
-
-		this.props.closeSignInDialog();
 	}
 
 	signInResult(success, message){
@@ -56,6 +55,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	restoreSignIn: () => dispatch(authActions.restoreSignIn()),
+	signOut: () => dispatch(authActions.signOut()),
+	openSettingMenuDialog: options => dispatch(dialogActions.openSettingMenuDialog(options)),
 	openSignInDialog: (options) => dispatch(dialogActions.openSignInDialog(options)),
 	closeSignInDialog: () => dispatch(dialogActions.closeSignInDialog()),
 });

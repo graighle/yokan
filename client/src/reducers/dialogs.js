@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions';
+import { combineActions, handleActions } from 'redux-actions';
 import * as dialogActions from '../actions/dialog';
 
 const initialState = {
@@ -9,24 +9,37 @@ const initialState = {
 
 const dialog = handleActions(
 	{
-		[dialogActions.openSignInDialog]: (
+		[dialogActions.closeDialogById]: (
 			state,
-			{ payload: options, error, meta, }
+			{ payload: { id, }, error, meta, }
+		) => ({
+			...state,
+			dialogs: state.dialogs.filter(d => d.id !== id),
+		}),
+		[combineActions(
+			dialogActions.openSettingMenuDialog,
+			dialogActions.openSignInDialog
+		)]: (
+			state,
+			{ payload: { type, options, }, error, meta, }
 		) => ({
 			...state,
 			nextId: state.nextId + 1,
 			dialogs: [...state.dialogs, {
 				id: state.nextId,
-				type: 'sign_in',
+				type,
 				options,
 			}],
 		}),
-		[dialogActions.closeSignInDialog]: (
+		[combineActions(
+			dialogActions.closeSettingMenuDialog,
+			dialogActions.closeSignInDialog
+		)]: (
 			state,
-			action
+			{ payload: { type, }, }
 		) => ({
 			...state,
-			dialogs: state.dialogs.filter(d => d.type !== 'sign_in'),
+			dialogs: state.dialogs.filter(d => d.type !== type),
 		}),
 	},
 	initialState

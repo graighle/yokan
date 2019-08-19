@@ -1,6 +1,7 @@
 import React from 'react';
 import DialogRendererView from './DialogRendererView';
 import { connect } from 'react-redux';
+import * as dialogActions from '../../actions/dialog';
 
 class DialogRenderer extends React.Component {
 
@@ -12,9 +13,14 @@ class DialogRenderer extends React.Component {
 			{
 				dialogs: dialogs.dialogs,
 				visible: dialogs.dialogs.length !== 0,
+				clickOverlay: this.clickOverlay.bind(this),
 			},
 			null
 		);
+	}
+
+	clickOverlay(e, dialogId){
+		this.props.closeDialogById(dialogId);
 	}
 }
 
@@ -23,6 +29,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+	closeDialogById: dialogId => dispatch(dialogActions.closeDialogById(dialogId)),
 });
 
 export default connect(
