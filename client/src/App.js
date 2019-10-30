@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
 import Content from './components/Content';
 import Header from './components/Header';
 import LeftMenu from './components/LeftMenu';
@@ -19,7 +20,8 @@ const App = () => (
 		<LeftMenu />
 		<Content>
 			<Switch>
-				<Route path="/setup" component={Setup} />
+				<Route exact path="/setup" component={Setup} />
+				<Route exact path="/" component={Dashboard} />
 			</Switch>
 		</Content>
 		<DialogRenderer />

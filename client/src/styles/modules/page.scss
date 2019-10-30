@@ -52,5 +52,17 @@
 
 	.m-section-body {
 	}
+
+	.m-section-ops {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+
+		.m-ops-left {
+		}
+
+		.m-ops-right {
+		}
+	}
 }
 

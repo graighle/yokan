@@ -1,0 +1,13 @@
+table.t-project-list {
+
+	tbody {
+
+		tr:nth-child(2n) {
+			background-color: #e8ecef;
+		}
+		tr:hover {
+			background-color: #c7dc68;
+		}
+	}
+}
+
