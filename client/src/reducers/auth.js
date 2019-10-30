@@ -1,17 +1,26 @@
-import { combineActions, handleActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
 import * as authActions from '../actions/auth';
 
 const initialState = {
+	restoring: true,
 	user: null,
 };
 
 const auth = handleActions(
 	{
-		[combineActions(authActions.signIn, authActions.restoreSignIn)]: (
+		[authActions.signIn]: (
 			state,
-			{ payload: { user }, error, meta, }
+			{ payload: { user, }, error, meta, }
 		) => ({
 			...state,
+			user: user || null,
+		}),
+		[authActions.restoreSignIn]: (
+			state,
+			{ payload: { user, }, error, meta, }
+		) => ({
+			...state,
+			restoring: !!meta.api,
 			user: user || null,
 		}),
 		[authActions.signOut]: (
