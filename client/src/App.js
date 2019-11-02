@@ -5,6 +5,7 @@ import Content from './components/Content';
 import Header from './components/Header';
 import LeftMenu from './components/LeftMenu';
 import DialogRenderer from './components/dialogs/DialogRenderer';
+import Project from './components/projects/Project';
 import Setup from './components/system/Setup';
 
 import 'normalize.css';
@@ -21,6 +22,7 @@ const App = () => (
 		<Content>
 			<Switch>
 				<Route exact path="/setup" component={Setup} />
+				<Route path="/:project_id" component={Project} />
 				<Route exact path="/" component={Dashboard} />
 			</Switch>
 		</Content>
