@@ -21,7 +21,7 @@ const App = () => (
 		<LeftMenu />
 		<Content>
 			<Switch>
-				<Route exact path="/setup" component={Setup} />
+				<Route exact path="/_setup" component={Setup} />
 				<Route path="/:project_id" component={Project} />
 				<Route exact path="/" component={Dashboard} />
 			</Switch>
