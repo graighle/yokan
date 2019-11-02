@@ -22,6 +22,26 @@ const sorter = (sort, asc) => {
 
 const ajv = new Ajv();
 
+export function getProject(req, res, next){
+
+	co(function*(){
+		let db = yield database();
+
+		const project = yield findProjects(db, {
+			id: req.params.project_id,
+		});
+		if(project.length === 0)
+			throw newClientError(404);
+
+		return project[0];
+	})
+	.then(project => {
+		res.send(project);
+	})
+	.catch(next);
+
+};
+
 export function getProjects(req, res, next){
 
 	const sort = sorter(req.query.sort, req.query.order === 'asc');
