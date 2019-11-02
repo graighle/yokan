@@ -8,6 +8,14 @@ const initialState = {
 
 const projects = handleActions(
 	{
+		[projectActions.getProject]: (
+			state,
+			{ payload: project, error, meta, }
+		) => ((meta.api || error) ? state : {
+			...state,
+			byId: { ...state.byId, [project.id]: project, },
+			allIds: state.byId[project.id] ? state.allIds : [...state.allIds, project.id],
+		}),
 		[projectActions.getProjects]: (
 			state,
 			{ payload: projects, error, meta, }
