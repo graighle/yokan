@@ -10,3 +10,15 @@
 	}
 }
 
+.t-content-menu-items {
+	border-color: #a8c97f;
+
+	.t-content-menu-item {
+	}
+	.t-content-menu-item.s-current {
+		font-weight: bold;
+		background-color: #a8c97f;
+		border-color: #a8c97f;
+	}
+}
+
