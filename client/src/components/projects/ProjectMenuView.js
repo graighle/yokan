@@ -1,8 +1,8 @@
 import React from 'react';
 
 const ProjectMenuView = props => (
-	<div className="m-content-area">
-		<div className="m-section m-project-menu-tabs t-project-menu-tabs">
+	<div>
+		<div className="m-project-menu-tabs t-project-menu-tabs">
 			{props.tabList.map(t => (<ProjectTabView key={t.key} tab={t} {...props} />))}
 		</div>
 	</div>

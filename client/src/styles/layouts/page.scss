@@ -1,4 +1,5 @@
 .l-page {
+
 	.l-header {
 		position: fixed;
 		top: 0;
@@ -7,18 +8,8 @@
 		height: 2.4em;
 	}
 
-	.l-left-menu {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 20em;
-		height: 200vh;
-		margin-top: 2.4em;
-	}
-
 	.l-content {
-		margin-top: 2.4em;
-		margin-left: 20em;
+		margin: 2.4em 4em;
 	}
 }
 
