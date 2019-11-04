@@ -16,8 +16,8 @@ const ProjectView = props => {
 			</div>
 			<div className="m-content-body">
 				<Switch>
-					<Route path={`${path}/steps/`}>
-						<ProjectMenu baseUrl={baseUrl} tab="steps" />
+					<Route path={`${path}/phases/`}>
+						<ProjectMenu baseUrl={baseUrl} tab="phases" />
 					</Route>
 					<Route path={`${path}/revisions/`}>
 						<ProjectMenu baseUrl={baseUrl} tab="revisions" />

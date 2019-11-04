@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 
 const tabList = [
 	{ key: 'overview',	text: 'Overview',	path: '',			},
-	{ key: 'steps',		text: 'Steps',		path: 'steps/',		},
+	{ key: 'phases',	text: 'Phases',		path: 'phases/',	},
 	{ key: 'revisions',	text: 'Revisions',	path: 'revisions/',	},
 	{ key: 'tickets',	text: 'Tickets',	path: 'tickets/',	},
 	{ key: 'analyses',	text: 'Analyses',	path: 'analyses/',	},

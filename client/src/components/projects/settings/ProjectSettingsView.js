@@ -10,8 +10,8 @@ const ProjectSettingView = props => {
 		<>
 			<div className="l-left-menu">
 				<Switch>
-					<Route path={`${path}steps/`}>
-						<ProjectSettingsMenu baseUrl={baseUrl} current="steps" />
+					<Route path={`${path}phases/`}>
+						<ProjectSettingsMenu baseUrl={baseUrl} current="phases" />
 					</Route>
 					<Route path={`${path}users/`}>
 						<ProjectSettingsMenu baseUrl={baseUrl} current="users" />

@@ -3,9 +3,9 @@ import ProjectSettingsMenuView from './ProjectSettingsMenuView';
 import { withRouter } from 'react-router';
 
 const menuItems = [
-	{ key: 'general',	text: 'General',	path: '',		},
-	{ key: 'steps',		text: 'Steps',		path: 'steps/',	},
-	{ key: 'users',		text: 'Users',		path: 'users/',	},
+	{ key: 'general',	text: 'General',	path: '',			},
+	{ key: 'phases',	text: 'Phases',		path: 'phases/',	},
+	{ key: 'users',		text: 'Users',		path: 'users/',		},
 ];
 
 class ProjectSettingsMenu extends React.Component {
