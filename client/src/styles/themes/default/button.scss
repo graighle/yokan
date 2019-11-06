@@ -1,18 +1,62 @@
-.t-action-button {
+/* Decisive Button Styles */
+.e-decisive-button.t-action-button {
 	color: #fef4f4;
 	background-color: #f08300;
 	border-color: #e87b00;
 }
-.t-action-button:hover {
+.e-decisive-button.t-action-button:hover {
 	background-color: #e87b00;
 }
 
-.t-positive-button {
+.e-decisive-button.t-positive-button {
 	color: #fef4f4;
 	background-color: #38b48b;
 	border-color: #2f9976;
 }
-.t-positive-button:hover {
+.e-decisive-button.t-positive-button:hover {
 	background-color: #2f9976;
+}
+
+.e-decisive-button.t-negative-button {
+	color: #383c3c;
+	background-color: #dddcd6;
+	border-color: #afafb0;
+}
+.e-decisive-button.t-negative-button:hover {
+	background-color: #afafb0;
+}
+
+.e-decisive-button.t-dangerous-button {
+	color: #fef4f4;
+	background-color: #d9333f;
+	border-color: #a73836;
+}
+.e-decisive-button.t-dangerous-button:hover {
+	background-color: #a73836;
+}
+
+/* Interactive Button Styles */
+.e-interactive-button.t-action-button {
+	color: #e87b00;
+	background-color: #fffffc;
+	border-color: #e87b00;
+}
+
+.e-interactive-button.t-positive-button {
+	color: #2f9976;
+	background-color: #fffffc;
+	border-color: #2f9976;
+}
+
+.e-interactive-button.t-negative-button {
+	color: #afafb0;
+	background-color: #fffffc;
+	border-color: #afafb0;
+}
+
+.e-interactive-button.t-dangerous-button {
+	color: #d9333f;
+	background-color: #fffffc;
+	border-color: #d9333f;
 }
 

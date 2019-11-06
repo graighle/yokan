@@ -1,20 +1,38 @@
-.e-square-button {
+/* Decisive Button */
+.e-decisive-button {
 	display: inline-block;
 	padding: 0.4em 0.6em 0.3em;
 
-	background-color: #dddddd;
+	background-color: #ffffff;
 	border: 1px solid black;
 	border-radius: 3px;
 	cursor: pointer;
-	text-shadow: 1px 1px #808080;
 }
-.e-square-button:hover {
-	background-color: #bbbbbb;
+.e-decisive-button:hover {
+	background-color: #000000;
 }
-.e-square-button:active {
-	background-color: #999999;
+.e-decisive-button:active {
+	background-color: #000000;
 }
 
+/* Interactive Button */
+.e-interactive-button {
+	display: inline-block;
+	padding: 0.4em 0.6em 0.3em;
+
+	background-color: #ffffff;
+	border: 1px solid black;
+	border-radius: 1em;
+	cursor: pointer;
+}
+.e-interactive-button:hover {
+	text-decoration: underline;
+}
+.e-interactive-button:active {
+	text-decoration: underline;
+}
+
+/* Button Widths */
 button.e-w-medium {
 	width: 15em;
 }
