@@ -71,7 +71,7 @@ const InitialSetupView = (props) => (
 					</dd>
 				</dl>
 				<div className="m-operations">
-					<button className="e-square-button" onClick={props.onSetup}>Setup</button>
+					<button className="e-decisive-button t-action-button" onClick={props.onSetup}>Setup</button>
 				</div>
 			</dl>
 		</div>
