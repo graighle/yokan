@@ -114,6 +114,84 @@ export function postProjects(req, res, next){
 
 };
 
+const validatePatchProjectsBody = ajv.compile({
+	type: 'object',
+	properties: {
+		name: {
+			type: 'string',
+			minLength: 1,
+			maxLength: 64,
+		},
+		phases: {
+			type: 'object',
+			properties: {
+				name: {
+					type: 'string',
+					minLength: 1,
+					maxLength: 32,
+				},
+				depth: {
+					type: 'integer',
+					minimum: 1,
+				},
+				tests: {
+					type: 'string',
+					minLength: 1,
+					maxLength: 32,
+				},
+			},
+			required: ['name', 'depth'],
+		},
+	},
+});
+
+export function patchProject(req, res, next){
+
+	// Request check.
+	if(!req.is('application/json'))
+		throw newClientError(400, {'error': 'invalid_request'});
+
+	// Body check.
+	if(!validatePatchProjectsBody(req.body))
+		throw newClientError(400, {'error': 'invalid_request'});
+
+	const projectId = req.params.project_id;
+
+	let project = {};
+	project.updated_at = new Date();
+	if(req.body.name)
+		project.name = req.body.name;
+	if(req.body.phases)
+		project.phases = req.body.phases;
+
+	co(function*(){
+		let db = yield database();
+
+		const found = yield db.collection(PROJECTS)
+			.findOne({ id: projectId, });
+		if(!found)
+			throw newClientError(404);
+
+		const {ok} = yield db.collection(PROJECTS)
+			.findOneAndUpdate({ id: projectId, }, { $set: project, });
+		if(ok !== 1)
+			throw newServerError(500);
+
+		const inserted = yield findProjects(db, {
+			id: projectId,
+		});
+		if(inserted.length === 0)
+			throw newClientError(404);
+
+		return inserted[0];
+	})
+	.then(pj => {
+		res.send(pj);
+	})
+	.catch(next);
+
+};
+
 async function findProjects(db, filter){
 
 	return db.collection(PROJECTS)

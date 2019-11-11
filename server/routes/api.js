@@ -15,6 +15,7 @@ router.use(applyAuthorization);
 router.get('/projects', projects.getProjects);
 router.get('/projects/:project_id', projects.getProject);
 router.post('/projects', projects.postProjects);
+router.patch('/projects/:project_id', projects.patchProject);
 
 router.post('/signin', signIn.signIn);
 
