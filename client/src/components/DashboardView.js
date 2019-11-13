@@ -39,7 +39,7 @@ const ProjectListView = props => (
 );
 
 const ProjectListItemView = props => (
-	<tr>
+	<tr onClick={e => props.clickProject(e, props.project.id)}>
 		<td>
 			{props.project.name}
 		</td>

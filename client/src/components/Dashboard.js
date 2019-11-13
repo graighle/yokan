@@ -1,6 +1,7 @@
 import React from 'react';
 import DashboardView from './DashboardView';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import * as projectActions from '../actions/project';
 
 class Dashboard extends React.Component {
@@ -15,9 +16,16 @@ class Dashboard extends React.Component {
 			DashboardView,
 			{
 				projects: projects.allIds.map(id => projects.byId[id]),
+				clickProject: this.clickProject.bind(this),
 			},
 			null
 		);
+	}
+
+	clickProject(e, projectId){
+		e.preventDefault();
+
+		this.props.history.push(`/${projectId}/`);
 	}
 
 }
@@ -31,8 +39,8 @@ const mapDispatchToProps = dispatch => ({
 	getProjects: () => dispatch(projectActions.getProjects()),
 });
 
-export default connect(
+export default withRouter(connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Dashboard);
+)(Dashboard));
 
