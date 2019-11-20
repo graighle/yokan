@@ -11,6 +11,12 @@ class Project extends React.Component {
 		this.props.getProject(match.params.project_id);
 	}
 
+	componentDidUpdate(prevProps){
+		if(this.props.match.params.project_id !== prevProps.match.params.project_id){
+			this.props.getProject(this.props.match.params.project_id);
+		}
+	}
+
 	render(){
 		const { match, projects } = this.props;
 
