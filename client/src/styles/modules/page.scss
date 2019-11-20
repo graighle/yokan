@@ -43,11 +43,17 @@
 
 .m-section {
 	.m-section-header {
+		display: flex;
+		justify-content: space-between;
 		padding-bottom: 0.2em;
 		margin: 1em 0;
 		border-bottom: 1px solid lightgray;
 
 		font-size: 1.4em;
+
+		.m-header-ops {
+			font-size: 1rem;
+		}
 	}
 
 	.m-section-body {
