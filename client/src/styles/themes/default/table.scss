@@ -11,3 +11,20 @@ table.t-project-list {
 	}
 }
 
+table.t-simple-list {
+
+	tbody {
+
+		tr:nth-child(2n) {
+			background-color: #e8ecef;
+		}
+	}
+
+	tbody.t-highlight {
+
+		tr:hover {
+			background-color: #c7dc68;
+		}
+	}
+}
+
