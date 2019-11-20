@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions';
+import { combineActions, handleActions } from 'redux-actions';
 import * as projectActions from '../actions/project';
 
 const initialState = {
@@ -8,7 +8,10 @@ const initialState = {
 
 const projects = handleActions(
 	{
-		[projectActions.getProject]: (
+		[combineActions(
+			projectActions.getProject,
+			projectActions.updateProject
+		)]: (
 			state,
 			{ payload: project, error, meta, }
 		) => ((meta.api || error) ? state : {

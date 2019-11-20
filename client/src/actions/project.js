@@ -2,6 +2,7 @@ import { createActions } from 'redux-actions';
 
 export const {
 	getProject,
+	updateProject,
 	getProjects,
 } = createActions({
 	GET_PROJECT: [
@@ -11,6 +12,17 @@ export const {
 				method: 'GET',
 				path: '/projects/' + projectId,
 				auth: true,
+			},
+		})
+	],
+	UPDATE_PROJECT: [
+		() => null,
+		(projectId, updates) => ({
+			api: {
+				method: 'PATCH',
+				path: '/projects/' + projectId,
+				auth: true,
+				body: updates,
 			},
 		})
 	],
