@@ -123,24 +123,21 @@ const validatePatchProjectsBody = ajv.compile({
 			maxLength: 64,
 		},
 		phases: {
-			type: 'object',
-			properties: {
-				name: {
-					type: 'string',
-					minLength: 1,
-					maxLength: 32,
-				},
-				depth: {
-					type: 'integer',
-					minimum: 1,
-				},
-				tests: {
-					type: 'string',
-					minLength: 1,
-					maxLength: 32,
-				},
-			},
-			required: ['name', 'depth'],
+			type: 'array',
+			items:[
+				{
+					type: 'object',
+					properties: {
+						name: {
+							type: 'string',
+							minLength: 1,
+							maxLength: 32,
+						},
+					},
+					required: ['name',],
+				}
+			],
+			additionalItems: true,
 		},
 	},
 });
