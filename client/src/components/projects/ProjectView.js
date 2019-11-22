@@ -19,8 +19,8 @@ const ProjectView = props => {
 					<Route path={`${path}/phases/`}>
 						<ProjectMenu baseUrl={baseUrl} tab="phases" />
 					</Route>
-					<Route path={`${path}/revisions/`}>
-						<ProjectMenu baseUrl={baseUrl} tab="revisions" />
+					<Route path={`${path}/steps/`}>
+						<ProjectMenu baseUrl={baseUrl} tab="steps" />
 					</Route>
 					<Route path={`${path}/tickets/`}>
 						<ProjectMenu baseUrl={baseUrl} tab="tickets" />

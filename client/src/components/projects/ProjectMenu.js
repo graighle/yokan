@@ -1,12 +1,12 @@
 import React from 'react';
-import ProjectMenuView from './ProjectMenuView';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import ProjectMenuView from './ProjectMenuView';
 
 const tabList = [
 	{ key: 'overview',	text: 'Overview',	path: '',			},
 	{ key: 'phases',	text: 'Phases',		path: 'phases/',	},
-	{ key: 'revisions',	text: 'Revisions',	path: 'revisions/',	},
+	{ key: 'steps',		text: 'Steps',		path: 'steps/',	},
 	{ key: 'tickets',	text: 'Tickets',	path: 'tickets/',	},
 	{ key: 'analyses',	text: 'Analyses',	path: 'analyses/',	},
 	{ key: 'settings',	text: 'Settings',	path: 'settings/',	},
