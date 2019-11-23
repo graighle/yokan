@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import ProjectMenu from './ProjectMenu';
-import ProjectOverview from './ProjectOverview';
 import ProjectSettings from './settings/ProjectSettings';
 
 const ProjectView = props => {
@@ -34,7 +33,6 @@ const ProjectView = props => {
 					</Route>
 					<Route path={path}>
 						<ProjectMenu baseUrl={baseUrl} tab="overview" />
-						<ProjectOverview />
 					</Route>
 				</Switch>
 			</div>
