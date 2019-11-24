@@ -11,31 +11,33 @@ class ProjectSettings extends React.Component {
 		super(props);
 
 		this.state = {
+			isEdit: false,
 		};
 	}
 
 	componentDidMount(){
-		this.copyPropsToStatesForEdit();
+		if(this.props.isEdit)
+			this.copyPropsToStates();
 	}
 
 	componentDidUpdate(prevProps){
 		if(this.props.isEdit && !prevProps.isEdit)
-			this.copyPropsToStatesForEdit();
+			this.copyPropsToStates();
 	}
 
 	render(){
-		const { projects, match } = this.props;
-
-		const projectId = match.params.project_id;
-		const project = projects.byId[projectId];
+		const project = this.project();
 		if(!project)
 			return null;
+
+		const isEdit = this.props.isEdit && this.state.isEdit;
+		const phases = this.state.isEdit ? this.state.phases : project.phases;
 
 		return React.createElement(
 			ProjectSettingsPhasesView,
 			{
-				isEdit: this.props.isEdit,
-				phases: (this.props.isEdit ? this.state.phases : project.phases) || [],
+				isEdit,
+				phases: phases || [],
 				changePhaseName: this.changePhaseName.bind(this),
 				clickEditPhases: this.clickEditPhases.bind(this),
 				clickRemove: this.clickRemove.bind(this),
@@ -49,16 +51,14 @@ class ProjectSettings extends React.Component {
 		);
 	}
 
-	copyPropsToStatesForEdit(){
-		const { projects, match } = this.props;
-
-		const projectId = match.params.project_id;
-		const project = projects.byId[projectId];
+	copyPropsToStates(){
+		const project = this.project();
 		if(!project)
 			return null;
 
 		this.setState({
-			phases: project.phases,
+			isEdit: true,
+			phases: project.phases || [],
 		});
 	}
 
@@ -155,6 +155,10 @@ class ProjectSettings extends React.Component {
 		e.preventDefault();
 
 		this.props.history.push(`${this.props.baseUrl}`);
+	}
+
+	project(){
+		return this.props.projects.byId[this.props.match.params.project_id];
 	}
 
 }
